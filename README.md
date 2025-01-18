@@ -22,4 +22,6 @@ To run this project, run `./match` from the root directory after building the co
 Source:              bat    Suggest:      cat
 Source:             lard    Suggest:     bird
 Source:             hogg    Suggest:      dog
+
+Average Execution Time: 0.000004
 ```
