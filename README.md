@@ -9,6 +9,7 @@ Compare implementations of string matching algorithms in C.
 
 ## Algorithms
 - [Levenshtein Distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
+- [Damerau-Levenshtein Distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance)
 
 ## Build
 To build this project, run `make` from the root directory
@@ -23,5 +24,13 @@ Source:              bat    Suggest:      cat
 Source:             lard    Suggest:     bird
 Source:             hogg    Suggest:      dog
 
-Average Execution Time: 0.000004
+Average Execution Time: 0.000002
+
+
+*** Damerau-Levenshtein Distance *** 
+Source:              bat    Suggest:      cat
+Source:             lard    Suggest:     bird
+Source:             hogg    Suggest:      dog
+
+Average Execution Time: 0.000001
 ```

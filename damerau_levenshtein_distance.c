@@ -2,21 +2,21 @@
 #include <string.h>
 #include <stdbool.h>
 #include <limits.h>
-#include "levenshtein_distance.h"
+#include "damerau_levenshtein_distance.h"
 #include "algorithm_comparison.h"
 
-static int calculate_levenshtein(char *source, char *target);
+static int calculate_damerau_levenshtein(char *source, char *target);
 
 // debug logging flag
 static bool debug = false;
 
 /**
- * Find closest string match based on Levenshtein Distance algorithm
+ * Find closest string match based on Damerau Levenshtein Distance algorithm
  * 
  * @param source String to compare
- * @return String in dictionary with lowest Levenshtein Distance from source
+ * @return String in dictionary with lowest Damerau Levenshtein Distance from source
  */
-char* levenshtein_distance(char *source, char *command_dict[]) {
+char* damerau_levenshtein_distance(char *source, char *command_dict[]) {
     // index in dictionary of string with smallest distance
     int min_idx = INT_MAX;
 
@@ -26,9 +26,9 @@ char* levenshtein_distance(char *source, char *command_dict[]) {
     // distance of current string being processed
     int distance = -1;
 
-    // calculate Levenshtein Distance for each string in dictionary 
+    // calculate Damerau Levenshtein Distance for each string in dictionary 
     for(int i = 0; i < COMMAND_COUNT; i++) {
-        distance = calculate_levenshtein(source, command_dict[i]);
+        distance = calculate_damerau_levenshtein(source, command_dict[i]);
 
         // keep track of string with smallest distance
         if(distance < min_distance) {
@@ -42,13 +42,13 @@ char* levenshtein_distance(char *source, char *command_dict[]) {
 }
 
 /**
- * Calculate Levenshtein Distance between strings
+ * Calculate Damerau Levenshtein Distance between strings
  * 
  * @param source String to compare to target
  * @param target String to compare to source
- * @return Levenshtein Distance between source and target
+ * @return Damerau Levenshtein Distance between source and target
  */
-static int calculate_levenshtein(char *source, char *target) {
+static int calculate_damerau_levenshtein(char *source, char *target) {
     // Levenshtein 2D matrix is one row/col larger than string len
     int source_len = strlen(source) + 1;
     int target_len = strlen(target) + 1;
@@ -85,7 +85,15 @@ static int calculate_levenshtein(char *source, char *target) {
                 min_operation = substitution;
             }
 
-            // assign minimum of 3 operations 
+            // 4 - transposition
+            if(x > 1 && y > 1) {
+                int transpose = matrix[x-2][y-2] + 1;
+                if(transpose < min_operation) {
+                    min_operation = transpose;
+                }
+            }
+
+            // assign minimum of 4 operations 
             matrix[x][y] = min_operation;
         }
     }
@@ -114,7 +122,7 @@ static int calculate_levenshtein(char *source, char *target) {
 //     }
 
 //     char *source = argv[1];
-//     char *suggestion = levenshtein_distance(source);
+//     char *suggestion = damerau_levenshtein_distance(source);
 
 //     printf("You entered: %s Did you mean: %s?\n", source, suggestion);
 // }

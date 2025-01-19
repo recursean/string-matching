@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -Wall -g
 
 # Source files
-SRCS = algorithm_comparison.c levenshtein_distance.c
+SRCS = algorithm_comparison.c levenshtein_distance.c damerau_levenshtein_distance.c
 # Object files (replace .c with .o)
 OBJS = $(SRCS:.c=.o)
 # Link with external libraries
