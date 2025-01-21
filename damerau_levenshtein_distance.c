@@ -87,9 +87,11 @@ static int calculate_damerau_levenshtein(char *source, char *target) {
 
             // 4 - transposition
             if(x > 1 && y > 1) {
-                int transpose = matrix[x-2][y-2] + 1;
-                if(transpose < min_operation) {
-                    min_operation = transpose;
+                if(source[x-1] == target[y-2] && target[y-1] == source[x-2]) {
+                    int transpose = matrix[x-2][y-2] + 1;
+                    if(transpose < min_operation) {
+                        min_operation = transpose;
+                    }
                 }
             }
 
